@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "commit": "git-cz",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watch",
+    "test:coverage": "CI=true react-scripts test --coverage --watch false --testResultsProcessor jest-sonar-reporter",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -88,8 +89,33 @@
       "@commitlint/config-conventional"
     ]
   },
+  "jest": {
+    "coverageReporters": [
+      "cobertura",
+      "text",
+      "json",
+      "html",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 40,
+        "functions": 40,
+        "lines": 50,
+        "statements": 50
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules",
+      "/constants/",
+      "styled.tsx",
+      "reportWebVitals.ts",
+      "/model/",
+      "/context/"
+    ]
+  },
   "jestSonar": {
-    "reportPath": "reports",
+    "reportPath": "coverage",
     "reportFile": "test-report.xml",
     "indent": 4
   }
